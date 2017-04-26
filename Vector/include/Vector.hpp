@@ -595,14 +595,16 @@ namespace container
 	bool
 	vector<T, A>::const_iterator::operator>(const const_iterator &_it) const
 	{
-		return (_current > _it._current);
+		//return (_current > _it._current);
+		return !(*this <= _it);
 	}
 
 	template<typename T, typename A>
 	bool
 	vector<T, A>::const_iterator::operator>=(const const_iterator &_it) const
 	{
-		return (_current >= _it._current);
+		//return (_current >= _it._current);
+		return !(*this < _it);
 	}
 	// </const_iterator - relation operators>
 
