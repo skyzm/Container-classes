@@ -1,2 +1,4 @@
 # Container-classes
-Learning C++ with container classes
+
+Education C++ implementations of container classes.
+Currently working on 'Vector'.
