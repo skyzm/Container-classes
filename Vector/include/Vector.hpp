@@ -1195,7 +1195,7 @@ namespace container
 		}
 		
 		++_size;
-		_allocator.construct(_it._current, std::move(_t));
+		_allocator.construct(_it._current - 1, std::move(_t));
 
 		return _it;
 	}
@@ -1233,7 +1233,7 @@ namespace container
 		}
 		
 		++_size;
-		_allocator.construct(_it._current, std::move(_t));
+		_allocator.construct(_it._current - 1, std::move(_t));
 
 		return _it;
 	}
@@ -1273,7 +1273,8 @@ namespace container
 	vector<T, A>::erase(iterator &_b, iterator &_e)
 	{
 		long len{_e - _b};		
-		for(auto it = _b; it != (this->end() - len); ++it)
+		auto end{this->end() - len};
+		for(auto it = _b; it != end; ++it)
 		{
 			*it = std::move(*(it + len));
 		}
@@ -1288,7 +1289,8 @@ namespace container
 	vector<T, A>::erase(iterator &&_b, iterator &&_e)
 	{
 		long len{_e - _b};		
-		for(auto it = _b; it != (this->end() - len); ++it)
+		auto end{this->end() - len};
+		for(auto it = _b; it != end; ++it)
 		{
 			*it = std::move(*(it + len));
 		}

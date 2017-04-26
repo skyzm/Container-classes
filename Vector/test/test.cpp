@@ -119,6 +119,16 @@ main (void)
 	std::for_each(v4.cbegin(), v4.cend(), [] (const int &x) { std::cout << x << " "; });
 	std::cout << std::endl;
 
+	std::cout << "\ninsert" << std::endl;
+	container::vector<double> v12;
+	auto it2{v12.begin()};
+	for(int i = 0; i < 100; ++i)
+	{
+		it2 = v12.insert(it2, static_cast<double>(i)/12);
+	}
+	std::for_each(v12.begin(), v12.end(), [] (const double &x) { std::cout << x << " "; });
+	std::cout << std::endl;
+
 	std::cout << "\nrange erase" << std::endl;
 	v10.erase(++++++v10.begin(), ------v10.end());
 	std::for_each(v10.cbegin(), v10.cend(), [] (const int &x) { std::cout << x << " "; });
