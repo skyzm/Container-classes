@@ -264,11 +264,6 @@ namespace container
 	typename vector<T, A>::iterator&
 	vector<T, A>::iterator::next()
 	{
-		if(nullptr == _current)
-		{
-			throw std::runtime_error{"null pointer"};
-		}
-
 		++_current;
 		
 		return *this;
@@ -279,11 +274,6 @@ namespace container
 	typename vector<T, A>::iterator&
 	vector<T, A>::iterator::prev()
 	{
-		if(nullptr == _current)
-		{
-			throw std::runtime_error{"null pointer"};
-		}
-		
 		--_current;
 
 		return *this;
@@ -503,11 +493,6 @@ namespace container
 	typename vector<T, A>::const_iterator&
 	vector<T, A>::const_iterator::next()
 	{
-		if(nullptr == _current)
-		{
-			throw std::runtime_error{"null pointer"};
-		}
-
 		++_current;
 
 		return *this;
@@ -518,11 +503,6 @@ namespace container
 	typename vector<T, A>::const_iterator&
 	vector<T, A>::const_iterator::prev()
 	{
-		if(nullptr == _current)
-		{
-			throw std::runtime_error{"null pointer"};
-		}
-
 		--_current;
 
 		return *this;
@@ -729,9 +709,7 @@ namespace container
 		}
 
 		for(int i = 0; i < _size; ++i)
-		{
 			_allocator.construct(_data + i, _t);
-		}
 	}
 	
 	// <copy constructor>
@@ -749,9 +727,7 @@ namespace container
 		}
 
 		for(int i = 0; i < _size; ++i)
-		{
 			_allocator.construct(_data + i, _v[i]);
-		}
 	}
 
 	// <move constructor>
@@ -778,9 +754,7 @@ namespace container
 		}
 
 		for(int i = 0; i < _size; ++i)
-		{
 			_allocator.construct(_data + i, *(_l.begin() + i));
-		}
 	}
 
 	// <deconstructor>
@@ -790,9 +764,8 @@ namespace container
 		if(_alloc)
 		{
 			for(int i = 0; i < _size; ++i)
-			{
 				_allocator.destroy(_data + i);
-			}
+
 			_allocator.deallocate(_data, _alloc);
 		}
 	}
@@ -818,9 +791,7 @@ namespace container
 		}
 
 		for(int i = 0; i < _size; ++i)
-		{
 			_allocator.construct(_data + i, _v[i]);
-		}
 
 		return *this;
 	}
@@ -859,9 +830,7 @@ namespace container
 		}
 
 		for(int i = 0; i < _size; ++i)
-		{
 			_allocator.construct(_data + i, *(_l.begin() + i));
-		}
 
 		return *this;
 	}
@@ -946,9 +915,8 @@ namespace container
 	{
 		_allocator.deallocate(_data, _alloc);
 		for(int i = 0; i < _size; ++i)
-		{
 			_allocator.destroy(_data + i);
-		}
+
 		_size = 0;
 		_alloc = 10;
 		try
@@ -967,12 +935,8 @@ namespace container
 	vector<T, A>::find(const T &_t)
 	{
 		for(auto it = this->begin(); it != this->end(); ++it)
-		{
 			if(*it == _t)
-			{
 				return vector<T, A>::iterator{it};
-			}
-		}
 
 		return this->end();
 	}
@@ -982,12 +946,8 @@ namespace container
 	vector <T, A>::find(const T &_t) const
 	{
 		for(auto it = this->cbegin(); it != this->cend(); ++it)
-		{
 			if(*it == _t)
-			{
 				return vector<T, A>::const_iterator{it};
-			}
-		}
 
 		return this->cend();
 	}

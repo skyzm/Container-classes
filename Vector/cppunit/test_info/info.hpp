@@ -16,7 +16,7 @@ void test_info( const std::string &_type,
 	_out << BOLDBLUE << "allocator type:    " << RESET << BOLDWHITE << _alloc_type << "<" << _type << ">" << RESET << std::endl;
 	_out << BOLDBLUE << "size:              " << RESET << BOLDWHITE << _size << RESET << std::endl;
 	_out << BOLDBLUE << "element generator: " << RESET << BOLDWHITE << _elem_gen << RESET << std::endl;
-	_out << BOLDBLUE << "comparator:       " << RESET << BOLDWHITE << _comparator << RESET << std::endl;
+	_out << BOLDBLUE << "comparator:        " << RESET << BOLDWHITE << _comparator << RESET << std::endl;
 	_out << BOLDWHITE << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << RESET << std::endl;
 }
 
