@@ -957,7 +957,7 @@ namespace container
 
 	// <iterators>
 
-	// <forward iterators>
+	// <iterators>
 	template <typename T, typename A>
 	typename vector<T, A>::iterator
 	vector<T, A>::begin()
