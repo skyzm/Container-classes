@@ -1,3 +1,5 @@
+// <credit: Nemanja Micovic>
+
 #ifndef _COLORS_H
 #define _COLORS_H
 

@@ -21,7 +21,7 @@ namespace container
 			typedef typename A::const_reference const_reference;
 			typedef typename A::pointer pointer;
 			// </typedefs>
-			
+
 			// <iterator - inner class>
 			class iterator : public std::iterator<std::random_access_iterator_tag, T>
 			{
@@ -44,7 +44,7 @@ namespace container
 					iterator& next();
 					iterator& prev();
 					// </iteration functions>
-					
+
 					// <assignment operators>
 					iterator& operator=(const iterator &_it);
 					iterator& operator=(iterator &&_it);
@@ -108,12 +108,12 @@ namespace container
 					const_iterator(const_iterator &&_cit);
 					~const_iterator();
 					// </constructors>
-					 
+
 					// <iteration functions>
 					const_iterator& next();
 					const_iterator& prev();
 					// </iteration functions>
-					 
+
 					// <assignment operators>
 					const_iterator& operator=(const const_iterator &_it);
 					const_iterator& operator=(const iterator &_it);
@@ -183,7 +183,7 @@ namespace container
 			inline const_reference operator[](const size_type &_p) const { return _data[_p]; }
 			inline const_reference at(const size_type &_p) const { return _data[_p]; }
 			// </data access/modification>
-			
+
 			// <iterators>
 			// <forward iterators>
 			iterator begin();
@@ -240,7 +240,7 @@ namespace container
 	vector<T, A>::iterator::iterator(const iterator &_it)
 	:_current{_it._current}
 	{}
-	
+
 	// <move constructor>
 	template <typename T, typename A>
 	vector<T, A>::iterator::iterator(iterator &&_it)
@@ -256,7 +256,7 @@ namespace container
 		this->_current = nullptr;
 	}
 	// </iterator - constructors>
-	
+
 	// <iteration functions>
 
 	// <move forwards>
@@ -265,7 +265,7 @@ namespace container
 	vector<T, A>::iterator::next()
 	{
 		++_current;
-		
+
 		return *this;
 	}
 
@@ -278,10 +278,10 @@ namespace container
 
 		return *this;
 	}
-	// </iteration functions>	
-					 
+	// </iteration functions>
+
 	// <iterator - assignment operators>
-	
+
 	// <copy assignment>
 	template<typename T, typename A>
 	typename vector<T, A>::iterator&
@@ -290,7 +290,7 @@ namespace container
 		_current = _it._current;
 		return *this;
 	}
-	
+
 	// <move assignment>
 	template <typename T, typename A>
 	typename vector<T, A>::iterator&
@@ -354,7 +354,7 @@ namespace container
 	typename vector<T, A>::iterator&
 	vector<T, A>::iterator::operator++()
 	{
-		this->next();	
+		this->next();
 		return *this;
 	}
 
@@ -397,7 +397,7 @@ namespace container
 
 	template <typename T, typename A>
 	typename vector<T, A>::iterator&
-	vector<T, A>::iterator::operator+=(const size_type &_d) 
+	vector<T, A>::iterator::operator+=(const size_type &_d)
 	{
 		return *this = *this + _d;
 	}
@@ -412,7 +412,7 @@ namespace container
 
 	template <typename T, typename A>
 	typename vector<T, A>::iterator&
-	vector<T, A>::iterator::operator-=(const size_type &_d) 
+	vector<T, A>::iterator::operator-=(const size_type &_d)
 	{
 		return *this = *this - _d;
 	}
@@ -487,7 +487,7 @@ namespace container
 	// </const_iterator - constructors>
 
 	// <const_iterator -iteration functions>
-	
+
 	// <move forwards>
 	template <typename T, typename A>
 	typename vector<T, A>::const_iterator&
@@ -526,7 +526,7 @@ namespace container
 	typename vector<T, A>::const_iterator&
 	vector<T, A>::const_iterator::operator=(const iterator& _it)
 	{
-		_current = _it._current;	
+		_current = _it._current;
 
 		return *this;
 	}
@@ -557,7 +557,7 @@ namespace container
 	{
 		return !(*this == _it);
 	}
-	
+
 	template <typename T, typename A>
 	bool
 	vector<T, A>::const_iterator::operator<(const const_iterator &_it) const
@@ -639,7 +639,7 @@ namespace container
 
 	template <typename T, typename A>
 	typename vector<T, A>::const_iterator&
-	vector<T, A>::const_iterator::operator+=(const size_type &_d) 
+	vector<T, A>::const_iterator::operator+=(const size_type &_d)
 	{
 		return *this = *this + _d;
 	}
@@ -680,7 +680,7 @@ namespace container
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::const_iterator::pointer 
+	typename vector<T, A>::const_iterator::pointer
 	vector<T, A>::const_iterator::operator->() const
 	{
 		return _current;
@@ -711,7 +711,7 @@ namespace container
 		for(int i = 0; i < _size; ++i)
 			_allocator.construct(_data + i, _t);
 	}
-	
+
 	// <copy constructor>
 	template <typename T, typename A>
 	vector<T, A>::vector(const vector<T, A> &_v)
@@ -891,7 +891,7 @@ namespace container
 
 
 	template <typename T, typename A>
-	T 
+	T
 	vector<T, A>::pop_back(void)
 	{
 		return _data[_size--];
@@ -899,7 +899,7 @@ namespace container
 
 	// <swap>
 	template <typename T, typename A>
-	void 
+	void
 	vector<T, A>::swap(vector<T, A> &_v)
 	{
 		std::swap(_data, _v._data);
@@ -910,7 +910,7 @@ namespace container
 
 	// <clear>
 	template <typename T, typename A>
-	void 
+	void
 	vector<T, A>::clear(void)
 	{
 		_allocator.deallocate(_data, _alloc);
@@ -954,7 +954,7 @@ namespace container
 	// </find>
 
 	// </data access/modification>
-	
+
 	// <iterators>
 
 	// <forward iterators>
@@ -962,39 +962,39 @@ namespace container
 	typename vector<T, A>::iterator
 	vector<T, A>::begin()
 	{
-		return vector<T, A>::iterator{_data};	
+		return vector<T, A>::iterator{_data};
 	}
-	
+
 	template <typename T, typename A>
-	typename vector<T, A>::const_iterator 
+	typename vector<T, A>::const_iterator
 	vector<T, A>::begin() const
 	{
 		return vector<T, A>::const_iterator{_data};
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::const_iterator 
+	typename vector<T, A>::const_iterator
 	vector<T, A>::cbegin() const
 	{
 		return vector<T, A>::const_iterator{_data};
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::iterator 
+	typename vector<T, A>::iterator
 	vector<T, A>::end()
 	{
 		return vector<T, A>::iterator{_data + _size};
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::const_iterator 
+	typename vector<T, A>::const_iterator
 	vector<T, A>::end() const
 	{
 		return vector<T, A>::const_iterator{_data + _size};
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::const_iterator 
+	typename vector<T, A>::const_iterator
 	vector<T, A>::cend() const
 	{
 		return vector<T, A>::const_iterator{_data + _size};
@@ -1002,42 +1002,42 @@ namespace container
 
 	// <reverse iterators>
 	template <typename T, typename A>
-	typename vector<T, A>::reverse_iterator 
+	typename vector<T, A>::reverse_iterator
 	vector<T, A>::rbegin()
 	{
 		return vector<T, A>::reverse_iterator{this->end()};
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::const_reverse_iterator 
+	typename vector<T, A>::const_reverse_iterator
 	vector<T, A>::rbegin() const
 	{
-		return vector<T, A>::const_reverse_iterator{this->end()};	
+		return vector<T, A>::const_reverse_iterator{this->end()};
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::const_reverse_iterator 
+	typename vector<T, A>::const_reverse_iterator
 	vector<T, A>::crbegin() const
 	{
 		return vector<T, A>::const_reverse_iterator{this->cend()};
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::reverse_iterator 
+	typename vector<T, A>::reverse_iterator
 	vector<T, A>::rend()
 	{
 		return vector<T, A>::reverse_iterator{this->begin()};
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::const_reverse_iterator 
+	typename vector<T, A>::const_reverse_iterator
 	vector<T, A>::rend() const
 	{
 		return vector<T, A>::const_reverse_iterator{this->begin()};
 	}
 
 	template <typename T, typename A>
-	typename vector<T, A>::const_reverse_iterator 
+	typename vector<T, A>::const_reverse_iterator
 	vector<T, A>::crend() const
 	{
 		return vector<T, A>::const_reverse_iterator{this->cbegin()};
@@ -1047,7 +1047,7 @@ namespace container
 
 	// <insert>
 	template <typename T, typename A>
-	typename vector<T, A>::iterator 
+	typename vector<T, A>::iterator
 	vector<T, A>::insert(iterator &_it, const T &_t)
 	{
 		if(_alloc == _size)
@@ -1080,7 +1080,7 @@ namespace container
 
 	// <insert - move iterator>
 	template <typename T, typename A>
-	typename vector<T, A>::iterator 
+	typename vector<T, A>::iterator
 	vector<T, A>::insert(iterator &&_it, const T &_t)
 	{
 		if(_alloc == _size)
@@ -1113,7 +1113,7 @@ namespace container
 
 	// <insert - move argument>
 	template <typename T, typename A>
-	typename vector<T, A>::iterator 
+	typename vector<T, A>::iterator
 	vector<T, A>::insert(iterator &_it, T &&_t)
 	{
 		if(_alloc == _size)
@@ -1143,10 +1143,10 @@ namespace container
 
 		return _it;
 	}
-	
+
 	// <insert - move iterator, move argument>
 	template <typename T, typename A>
-	typename vector<T, A>::iterator 
+	typename vector<T, A>::iterator
 	vector<T, A>::insert(iterator &&_it, T &&_t)
 	{
 		if(_alloc == _size)
@@ -1180,7 +1180,7 @@ namespace container
 
 	// <erase>
 	template <typename T, typename A>
-	typename vector<T, A>::iterator 
+	typename vector<T, A>::iterator
 	vector<T, A>::erase(iterator &_it)
 	{
 		if(_it == this->end())
@@ -1194,7 +1194,7 @@ namespace container
 
 	// <erase - move iterator>
 	template <typename T, typename A>
-	typename vector<T, A>::iterator 
+	typename vector<T, A>::iterator
 	vector<T, A>::erase(iterator &&_it)
 	{
 		if(_it == this->end())
@@ -1208,13 +1208,13 @@ namespace container
 
 	// <erase ranged>
 	template <typename T, typename A>
-	typename vector<T, A>::iterator 
+	typename vector<T, A>::iterator
 	vector<T, A>::erase(iterator &_b, iterator &_e)
 	{
 		if(_b == _e)
 			return _b;
 
-		long len{_e - _b};		
+		long len{_e - _b};
 		std::move(_e, this->end(), _b);
 		_size -= len;
 
@@ -1223,13 +1223,13 @@ namespace container
 
 	// <erase ranged - move iterators>
 	template <typename T, typename A>
-	typename vector<T, A>::iterator 
+	typename vector<T, A>::iterator
 	vector<T, A>::erase(iterator &&_b, iterator &&_e)
 	{
 		if(_b == _e)
 			return _b;
 
-		long len{_e - _b};		
+		long len{_e - _b};
 		std::move(_e, this->end(), _b);
 		_size -= len;
 

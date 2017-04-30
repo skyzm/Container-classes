@@ -507,7 +507,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::range_er
 	for(size_t i = 0; i < 10; ++i)
 	{
 		std::uniform_int_distribution<size_t> lower_bound(0, std_vect.size()/2), upper_bound(std_vect.size()/2 + 1, std_vect.size() - 1);
-		dwn = lower_bound(gen);		
+		dwn = lower_bound(gen);
 		upp = upper_bound(gen);
 
 		_v2->erase(_v2->begin() + dwn, _v2->begin() + upp);
