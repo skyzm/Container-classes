@@ -1,5 +1,4 @@
 #ifndef _VECTOR_HPP_
-#define _VECTOR_HPP_
 
 #include <iostream>
 #include <iterator>
@@ -180,7 +179,9 @@ namespace container
 			iterator find(const T &_t);
 			const_iterator find(const T &_t) const;
 			inline reference operator[](const size_type &_p) { return _data[_p]; }
+			inline reference at(const size_type &_p) { return _data[_p]; };
 			inline const_reference operator[](const size_type &_p) const { return _data[_p]; }
+			inline const_reference at(const size_type &_p) const { return _data[_p]; }
 			// </data access/modification>
 			
 			// <iterators>
@@ -890,8 +891,7 @@ namespace container
 			tmp = nullptr;
 		}
 
-		_allocator.construct(_data + _size, _t);
-		_size++;
+		_allocator.construct(_data + _size++, _t);
 	}
 
 	template <typename T, typename A>
@@ -917,8 +917,7 @@ namespace container
 			tmp = nullptr;
 		}
 
-		_allocator.construct(_data + _size, std::move(_t));
-		++_size;
+		_allocator.construct(_data + _size++, std::move(_t));
 	}
 
 
@@ -1244,10 +1243,7 @@ namespace container
 	typename vector<T, A>::iterator 
 	vector<T, A>::erase(iterator &_it)
 	{
-		for(auto it = _it; it != this->end(); ++ it)
-		{
-			*it = std::move(*(it + 1));
-		}
+		std::move(_it + 1, this->end(), _it);
 		--_size;
 
 		return _it;
@@ -1258,10 +1254,7 @@ namespace container
 	typename vector<T, A>::iterator 
 	vector<T, A>::erase(iterator &&_it)
 	{
-		for(auto it = _it; it != this->end(); ++ it)
-		{
-			*it = std::move(*(it + 1));
-		}
+		std::move(_it + 1, this->end(), _it);
 		--_size;
 
 		return _it;
@@ -1273,11 +1266,7 @@ namespace container
 	vector<T, A>::erase(iterator &_b, iterator &_e)
 	{
 		long len{_e - _b};		
-		auto end{this->end() - len};
-		for(auto it = _b; it != end; ++it)
-		{
-			*it = std::move(*(it + len));
-		}
+		std::move(_e, this->end(), _b);
 		_size -= len;
 
 		return _b;
@@ -1289,11 +1278,7 @@ namespace container
 	vector<T, A>::erase(iterator &&_b, iterator &&_e)
 	{
 		long len{_e - _b};		
-		auto end{this->end() - len};
-		for(auto it = _b; it != end; ++it)
-		{
-			*it = std::move(*(it + len));
-		}
+		std::move(_e, this->end(), _b);
 		_size -= len;
 
 		return _b;
