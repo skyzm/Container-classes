@@ -10,11 +10,12 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include "../include/Vector.hpp"
 
+// <default template parameters for _element_generator and _BinaryPredicate>
 namespace detail
 {
 
 	// <default comparator>
-	template <typename T1>
+	template<typename T1>
 	struct _comp
 	{
 		bool operator()(const T1 &_a, const T1 &_b)
@@ -43,8 +44,8 @@ namespace detail
 
 }
 
-// <test declaration>
-template <
+// <TestFixture class declaration>
+template<
 		typename T,
 		typename A = std::allocator<T>,
 		size_t _size = 1000000,
@@ -54,31 +55,25 @@ template <
 class vector_test_fixture : public CppUnit::TestFixture
 {
 	public:
-		// <implement setUp() and tearDown() for the CppUnit::TestFixture to
+		// <implement setUp() and tearDown() for CppUnit::TestFixture to
 		//  use to initialilize and delete variables before and after each test>
 		void setUp();
 		void tearDown();
 	private:
-		// <add vector_test_fixture<T, A> to CppUnit::TestSuite>
+		// <add vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate> to CppUnit::TestSuite>
 		CPPUNIT_TEST_SUITE(vector_test_fixture);
 
-		// <add test methods>
+		// <test methods>
 		CPPUNIT_TEST(default_constructor_test);
 		CPPUNIT_TEST(copy_constructor_test);
 		CPPUNIT_TEST(move_constructor_test);
-		CPPUNIT_TEST(init_list_consturctor_test);
 		CPPUNIT_TEST(copy_assignment_test);
 		CPPUNIT_TEST(move_assignment_test);
-		CPPUNIT_TEST(init_list_assignment_test);
 		CPPUNIT_TEST(push_back_test);
 		CPPUNIT_TEST(pop_back_test);
 		CPPUNIT_TEST(swap_test);
 		CPPUNIT_TEST(clear_test);
 		CPPUNIT_TEST(access_operator_test);
-		CPPUNIT_TEST(iterator_test);
-		CPPUNIT_TEST(const_iterator_test);
-		CPPUNIT_TEST(reverse_iterator_test);
-		CPPUNIT_TEST(const_reverse_iterator_test);
 		CPPUNIT_TEST(insert_test);
 		CPPUNIT_TEST(erase_test);
 		CPPUNIT_TEST(range_erase_test);
@@ -92,13 +87,11 @@ class vector_test_fixture : public CppUnit::TestFixture
 		void default_constructor_test(void);
 		void copy_constructor_test(void);
 		void move_constructor_test(void);
-		void init_list_consturctor_test(void);
 		// </constructors>
 
 		// <assignment>
 		void copy_assignment_test(void);
 		void move_assignment_test(void);
-		void init_list_assignment_test(void);
 		// </assignment>
 
 		// <data access/modification>
@@ -108,13 +101,6 @@ class vector_test_fixture : public CppUnit::TestFixture
 		void clear_test(void);
 		void access_operator_test(void);
 		// </data access/modification>
-
-		// <iterators>
-		void iterator_test(void);
-		void const_iterator_test(void);
-		void reverse_iterator_test(void);
-		void const_reverse_iterator_test(void);
-		// </iterators>
 
 		// <structure modification>
 		void insert_test(void);
@@ -145,8 +131,10 @@ CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(boost_def_vect, "value_type=double, alloca
 CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(fast_boost_def_vect, "value_type=double, allocator=boost::fast_pool_allocator<double>, size=30,000,000");
 // </registration>
 
-// <init functions>
-template <
+// <TestFixture class implementation>
+
+// <initializer functions>
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -161,7 +149,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::setUp()
 	_v3 = nullptr;
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -176,12 +164,12 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::tearDown
 	if(nullptr != _v3)
 		delete _v3;
 }
-// </init functions>
+// </initializer functions>
 
 // <tester functions>
 
 // <constructors>
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -199,7 +187,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::default_
 			std::equal(_v2->begin(), _v2->end(), std_vect.begin(), _BinaryPredicate{}));
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -217,7 +205,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::copy_con
 			std::equal(_v2->begin(), _v2->end(), _v3->begin(), _BinaryPredicate{}));
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -244,22 +232,10 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::move_con
 			std::equal(_v3->begin(), _v3->end(), std_vect_move.begin(), _BinaryPredicate{}));
 }
 
-template <
-		typename T,
-		typename A,
-		size_t _size,
-		typename _element_generator,
-		typename _BinaryPredicate
-		>
-void
-vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::init_list_consturctor_test(void)
-{
-	// TODO : think of a way to test this
-}
 // </constructors>
 
 // <assignment>
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -277,7 +253,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::copy_ass
 			std::equal(_v2->begin(), _v2->end(), v_copy_assign.begin(), _BinaryPredicate{}));
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -304,22 +280,10 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::move_ass
 			std::equal(v_move_assign.begin(), v_move_assign.end(), std_vect_move.begin(), _BinaryPredicate{}));
 }
 
-template <
-		typename T,
-		typename A,
-		size_t _size,
-		typename _element_generator,
-		typename _BinaryPredicate
-		>
-void
-vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::init_list_assignment_test(void)
-{
-	// TODO : think of a way to test this
-}
 // </assignment>
 
 // <data access/modification>
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -343,7 +307,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::push_bac
 			std::equal(_v1->begin(), _v1->end(), std_vect.begin(), _BinaryPredicate{}));
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -353,12 +317,12 @@ template <
 void
 vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::pop_back_test(void)
 {
-	_element_generator gen{};
+	_element_generator _rd{};
 	std::vector<T, A> std_vect(_size);
 	for(size_t i = 0; i < _size; ++i)
-		_v2->at(i) = std_vect[i] = gen();
+		_v2->at(i) = std_vect[i] = _rd();
 
-	size_t pop_back_count{gen() % _size};
+	size_t pop_back_count{_rd() % _size};
 	for(size_t i = 0; i < pop_back_count; ++i)
 	{
 		_v2->pop_back();
@@ -370,7 +334,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::pop_back
 			std::equal(_v2->begin(), _v2->end(), std_vect.begin(), _BinaryPredicate{}));
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -389,7 +353,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::swap_tes
 		_v2->at(i) = std_vect1[i] = tmp1;
 		_v3->at(i) = std_vect2[i] = tmp2;
 	}
-	
+
 	CPPUNIT_ASSERT_MESSAGE("swap - size[before swap]", _v2->size() == std_vect1.size());
 	CPPUNIT_ASSERT_MESSAGE("swap - contents[before swap]",
 			std::equal(_v2->begin(), _v2->end(), std_vect1.begin(), _BinaryPredicate{}));
@@ -409,7 +373,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::swap_tes
 			std::equal(_v3->begin(), _v3->end(), std_vect1.begin(), _BinaryPredicate{}));
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -429,7 +393,7 @@ vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::clear_te
 	CPPUNIT_ASSERT_MESSAGE("clear - size[after clear]", 0 == _v2->size());
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -439,66 +403,20 @@ template <
 void
 vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::access_operator_test(void)
 {
-	// TODO : implement
+	_element_generator _rd{};
+	std::vector<T, A> std_vect(_size);
+	container::vector<T, A> v_loc(_size);
+	for(size_t i = 0; i < _size; ++i)
+		v_loc[i] = std_vect[i] = _rd();
+
+	CPPUNIT_ASSERT_MESSAGE("access_operator - size", v_loc.size() == std_vect.size());
+	CPPUNIT_ASSERT_MESSAGE("access_operator - contents",
+			std::equal(v_loc.begin(), v_loc.end(), std_vect.begin(), _BinaryPredicate{}));
 }
 // </data access/modification>
 
-// <iterators>
-template <
-		typename T,
-		typename A,
-		size_t _size,
-		typename _element_generator,
-		typename _BinaryPredicate
-		>
-void
-vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::iterator_test(void)
-{
-	// TODO : implement
-}
-
-template <
-		typename T,
-		typename A,
-		size_t _size,
-		typename _element_generator,
-		typename _BinaryPredicate
-		>
-void
-vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::const_iterator_test(void)
-{
-	// TODO : implement
-}
-
-template <
-		typename T,
-		typename A,
-		size_t _size,
-		typename _element_generator,
-		typename _BinaryPredicate
-		>
-void
-vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::reverse_iterator_test(void)
-{
-	// TODO : implement
-}
-
-template <
-		typename T,
-		typename A,
-		size_t _size,
-		typename _element_generator,
-		typename _BinaryPredicate
-		>
-void
-vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::const_reverse_iterator_test(void)
-{
-	// TODO : implement
-}
-// </iterators>
-
 // <structure modification>
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -508,10 +426,31 @@ template <
 void
 vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::insert_test(void)
 {
-	// TODO : implement
+	_element_generator _rd{};
+	std::vector<T, A> std_vect(_size);
+	for(size_t i = 0; i < _size; ++i)
+		_v2->at(i) = std_vect[i] = _rd();
+
+	CPPUNIT_ASSERT_MESSAGE("insert - size[before insertion]", _v2->size() == std_vect.size());
+	CPPUNIT_ASSERT_MESSAGE("insert - contents[before insertion]",
+			std::equal(_v2->begin(), _v2->end(), std_vect.begin(), _BinaryPredicate{}));
+
+	std::mt19937 gen{static_cast<std::random_device::result_type>(std::time(nullptr))};
+	for(size_t i = 0; i < 10; ++i)
+	{
+		std::uniform_int_distribution<int> pos_gen(0, std_vect.size() - 1);
+		size_t pos(pos_gen(gen));
+		T tmp(_rd());
+		_v2->insert(_v2->begin() + pos, tmp);
+		std_vect.insert(std_vect.begin() + pos, tmp);
+	}
+
+	CPPUNIT_ASSERT_MESSAGE("insert - size[after insertion]", _v2->size() == std_vect.size());
+	CPPUNIT_ASSERT_MESSAGE("insert - contents[after insertion]",
+			std::equal(_v2->begin(), _v2->end(), std_vect.begin(), _BinaryPredicate{}));
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -521,10 +460,30 @@ template <
 void
 vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::erase_test(void)
 {
-	// TODO : implement
+	_element_generator _rd{};
+	std::vector<T, A> std_vect(_size);
+	for(size_t i = 0; i < _size; ++i)
+		_v2->at(i) = std_vect[i] = _rd();
+
+	CPPUNIT_ASSERT_MESSAGE("erase - size[before erase]", _v2->size() == std_vect.size());
+	CPPUNIT_ASSERT_MESSAGE("erase - contents[before erase]",
+			std::equal(_v2->begin(), _v2->end(), std_vect.begin(), _BinaryPredicate{}));
+
+	std::mt19937 gen{static_cast<std::random_device::result_type>(std::time(nullptr))};
+	for(size_t i = 0; i < 10; ++i)
+	{
+		std::uniform_int_distribution<int> pos_gen(0, std_vect.size() - 1);
+		size_t pos(pos_gen(gen));
+		_v2->erase(_v2->begin() + pos);
+		std_vect.erase(std_vect.begin() + pos);
+	}
+
+	CPPUNIT_ASSERT_MESSAGE("erase - size[after erase]", _v2->size() == std_vect.size());
+	CPPUNIT_ASSERT_MESSAGE("erase - contents[after erase]",
+			std::equal(_v2->begin(), _v2->end(), std_vect.begin(), _BinaryPredicate{}));
 }
 
-template <
+template<
 		typename T,
 		typename A,
 		size_t _size,
@@ -534,7 +493,33 @@ template <
 void
 vector_test_fixture<T, A, _size, _element_generator, _BinaryPredicate>::range_erase_test(void)
 {
-	// TODO : implement
+	_element_generator _rd{};
+	std::vector<T, A> std_vect(_size);
+	for(size_t i = 0; i < _size; ++i)
+		_v2->at(i) = std_vect[i] = _rd();
+
+	CPPUNIT_ASSERT_MESSAGE("range_erase - size[before erase]", _v2->size() == std_vect.size());
+	CPPUNIT_ASSERT_MESSAGE("range_erase - contents[before erase]",
+			std::equal(_v2->begin(), _v2->end(), std_vect.begin(), _BinaryPredicate{}));
+
+	std::mt19937 gen{static_cast<std::random_device::result_type>(std::time(nullptr))};
+	size_t dwn{0}, upp{0};
+	for(size_t i = 0; i < 10; ++i)
+	{
+		std::uniform_int_distribution<size_t> lower_bound(0, std_vect.size()/2), upper_bound(std_vect.size()/2 + 1, std_vect.size() - 1);
+		dwn = lower_bound(gen);		
+		upp = upper_bound(gen);
+
+		_v2->erase(_v2->begin() + dwn, _v2->begin() + upp);
+		std_vect.erase(std_vect.begin() + dwn, std_vect.begin() + upp);
+
+		CPPUNIT_ASSERT_MESSAGE("range_erase - size[durring erase]", _v2->size() == std_vect.size());
+	}
+
+	CPPUNIT_ASSERT_MESSAGE("range_erase - size[after erase]", _v2->size() == std_vect.size());
+	CPPUNIT_ASSERT_MESSAGE("range_erase - contents[after erase]",
+			std::equal(_v2->begin(), _v2->end(), std_vect.begin(), _BinaryPredicate{}));
+
 }
 // </structure modification>
 
