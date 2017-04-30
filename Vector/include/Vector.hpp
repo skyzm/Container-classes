@@ -1111,14 +1111,9 @@ namespace container
 			tmp = nullptr;
 		}
 
-		++_it;
-		for(auto it = this->end(); it > _it; --it)
-		{
-			*it = std::move(*(it - 1));
-		}
-		
-		++_size;
+		std::move_backward(_it, this->end(), std::next(this->end()));
 		_allocator.construct(_it._current, _t);
+		++_size;
 
 		return _it;
 	}
@@ -1149,14 +1144,9 @@ namespace container
 			tmp = nullptr;
 		}
 
-		++_it;
-		for(auto it = this->end(); it > _it; --it)
-		{
-			*it = std::move(*(it - 1));
-		}
-		
-		++_size;
+		std::move_backward(_it, this->end(), std::next(this->end()));
 		_allocator.construct(_it._current, _t);
+		++_size;
 
 		return _it;
 	}
@@ -1187,14 +1177,9 @@ namespace container
 			tmp = nullptr;
 		}
 
-		++_it;
-		for(auto it = this->end(); it > _it; --it)
-		{
-			*it = std::move(*(it - 1));
-		}
-		
+		std::move_backward(_it, this->end(), std::next(this->end()));
+		_allocator.construct(_it._current, std::move(_t));
 		++_size;
-		_allocator.construct(_it._current - 1, std::move(_t));
 
 		return _it;
 	}
@@ -1225,14 +1210,9 @@ namespace container
 			tmp = nullptr;
 		}
 
-		++_it;
-		for(auto it = this->end(); it > _it; --it)
-		{
-			*it = std::move(*(it - 1));
-		}
-		
+		std::move_backward(_it, this->end(), std::next(this->end()));
+		_allocator.construct(_it._current, std::move(_t));
 		++_size;
-		_allocator.construct(_it._current - 1, std::move(_t));
 
 		return _it;
 	}
@@ -1243,6 +1223,9 @@ namespace container
 	typename vector<T, A>::iterator 
 	vector<T, A>::erase(iterator &_it)
 	{
+		if(_it == this->end())
+			return _it;
+
 		std::move(_it + 1, this->end(), _it);
 		--_size;
 
@@ -1254,6 +1237,9 @@ namespace container
 	typename vector<T, A>::iterator 
 	vector<T, A>::erase(iterator &&_it)
 	{
+		if(_it == this->end())
+			return _it;
+
 		std::move(_it + 1, this->end(), _it);
 		--_size;
 
@@ -1265,6 +1251,9 @@ namespace container
 	typename vector<T, A>::iterator 
 	vector<T, A>::erase(iterator &_b, iterator &_e)
 	{
+		if(_b == _e)
+			return _b;
+
 		long len{_e - _b};		
 		std::move(_e, this->end(), _b);
 		_size -= len;
@@ -1277,6 +1266,9 @@ namespace container
 	typename vector<T, A>::iterator 
 	vector<T, A>::erase(iterator &&_b, iterator &&_e)
 	{
+		if(_b == _e)
+			return _b;
+
 		long len{_e - _b};		
 		std::move(_e, this->end(), _b);
 		_size -= len;
