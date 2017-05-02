@@ -1,3 +1,22 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// <author info>
+// 	<name>
+// 		Stefan Pantic 
+// 	<github>
+// 		https://github.com/syIar/Container-classes
+// 	<university>
+// 		University of Belgrade, Faculty of Mathematics, second year student
+// 	<year>
+// 		Second
+// 	<email>
+// 		stefanpantic13@gmail.com
+// </author info>
+// 
+// <description>
+// Helper function to print test info.
+// </description>
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 #ifndef _INFO_HPP_
 #define _INFO_HPP_
 

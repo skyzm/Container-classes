@@ -1,3 +1,30 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// <author info>
+// 	<name>
+// 		Stefan Pantic 
+// 	<github>
+// 		https://github.com/syIar/Container-classes
+// 	<university>
+// 		University of Belgrade, Faculty of Mathematics, second year student
+// 	<year>
+// 		Second
+// 	<email>
+// 		stefanpantic13@gmail.com
+// </author info>
+// 
+// <description>
+// Here, I'm testing my template vector class using the CppUnit framework.
+// The CppUnit::TextTestRunner class uses the factory pattern to fetch 
+// registered tests from the named test registry, instance, and run them.
+// The results will be printed to the console.
+// 
+// The tester class has been made so that it can be used to test the vector
+// of any type, with any allocator, and of any size.
+// NOTE : the element generator and comparator may need to be provided if
+// the default ones do not apply to the desired type.
+// </description>
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 #include <iostream>
 #include <boost/pool/pool_alloc.hpp>
 #include <cppunit/ui/text/TextTestRunner.h>

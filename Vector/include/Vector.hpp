@@ -1,3 +1,25 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// <author info>
+// 	<name>
+// 		Stefan Pantic 
+// 	<github>
+// 		https://github.com/syIar/Container-classes
+// 	<university>
+// 		University of Belgrade, Faculty of Mathematics, second year student
+// 	<year>
+// 		Second
+// 	<email>
+// 		stefanpantic13@gmail.com
+// </author info>
+// 
+// <description>
+// Learning C++ by usage.
+// This is my attempt to implement the std::vector class.
+// The code will constantly evolve as I learn new things and apply them.
+// So far the class has been tested using the CppUnit framework.
+// </description>
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 #ifndef _VECTOR_HPP_
 
 #include <iostream>
@@ -32,6 +54,10 @@ namespace container
 					typedef typename A::pointer pointer;
 					typedef typename A::difference_type difference_type;
 					// </typedefs>
+
+					// <friends>
+					friend class vector<T, A>;
+					// </friends>
 
 					// <constructors>
 					iterator(T *_p = nullptr);
@@ -77,16 +103,6 @@ namespace container
 					// </reference operators>
 				private:
 					pointer _current;
-					// <friends>
-					friend iterator vector<T, A>::insert(iterator &_it, const T &_v);
-					friend iterator vector<T, A>::insert(iterator &&_it, const T &_v);
-					friend iterator vector<T, A>::insert(iterator &_it, T &&_v);
-					friend iterator vector<T, A>::insert(iterator &&_it, T &&_v);
-					friend iterator vector<T, A>::erase(iterator &_it);
-					friend iterator vector<T, A>::erase(iterator &&_it);
-					friend iterator vector<T, A>::erase(iterator &_b, iterator &_e);
-					friend iterator vector<T, A>::erase(iterator &&_b, iterator &&_e);
-					// </friends>
 			};
 			// </iterator - inner class>
 
