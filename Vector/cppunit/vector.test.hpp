@@ -1,3 +1,22 @@
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+// <author info>
+// 	<name>
+// 		Stefan Pantic 
+// 	<github>
+// 		https://github.com/syIar/Container-classes
+// 	<university>
+// 		University of Belgrade, Faculty of Mathematics, second year student
+// 	<year>
+// 		Second
+// 	<email>
+// 		stefanpantic13@gmail.com
+// </author info>
+//  
+// <description>
+// Descritption in main.cpp
+// </description>
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ 
 #ifndef _VECTOR_TEST_HPP_
 #define _VECTOR_TEST_HPP_
 
@@ -28,6 +47,8 @@ namespace detail
 	struct _rand_gen
 	{
 		static std::random_device _rd;
+		std::mt19937 _engine;
+
 		_rand_gen()
 			:_engine{_rd()}
 		{}
@@ -37,9 +58,7 @@ namespace detail
 			return _engine();
 		}
 
-		std::mt19937 _engine;
 	};
-
 	std::random_device _rand_gen::_rd{};
 
 }
