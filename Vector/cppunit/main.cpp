@@ -1,7 +1,7 @@
 #include <iostream>
 #include <boost/pool/pool_alloc.hpp>
 #include <cppunit/ui/text/TextTestRunner.h>
-#include "Vector.test.hpp"
+#include "vector.test.hpp"
 #include "test_info/info.hpp"
 
 int
