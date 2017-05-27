@@ -1,7 +1,7 @@
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 // <author info>
 // 	<name>
-// 		Stefan Pantic 
+// 		Stefan Pantic
 // 	<github>
 // 		https://github.com/syIar/Container-classes
 // 	<university>
@@ -11,7 +11,7 @@
 // 	<email>
 // 		stefanpantic13@gmail.com
 // </author info>
-// 
+//
 // <description>
 // Learning C++ by usage.
 // This is my attempt to implement the std::vector class.
@@ -24,7 +24,6 @@
 
 #include <iostream>
 #include <iterator>
-#include <stdexcept>
 #include <memory>
 
 namespace container
@@ -189,7 +188,9 @@ namespace container
 			// <data access/modification>
 			void push_back(const T &_t = T());
 			void push_back(T &&_t);
-			T pop_back(void);
+			void pop_back(void);
+			const_reference front(void) const;
+			const_reference back(void) const;
 			void swap(vector<T, A> &_v);
 			void clear(void);
 			iterator find(const T &_t);
@@ -226,8 +227,8 @@ namespace container
 			iterator erase(iterator &&_b, iterator &&_e);
 			// </iterators>
 
-			inline size_type size(void) { return _size; }
-			inline bool empty() { return (0 == _size) ? true : false; }
+			inline size_type size(void) const { return _size; }
+			inline bool empty() const { return (0 == _size) ? true : false; }
 
 		private:
 			// <data>
@@ -724,7 +725,7 @@ namespace container
 			std::cerr << e.what() << std::endl;
 		}
 
-		for(int i = 0; i < _size; ++i)
+		for(size_type i = 0; i < _size; ++i)
 			_allocator.construct(_data + i, _t);
 	}
 
@@ -907,10 +908,24 @@ namespace container
 
 
 	template <typename T, typename A>
-	T
+	void
 	vector<T, A>::pop_back(void)
 	{
-		return _data[_size--];
+		--_size;
+	}
+
+	template <typename T, typename A>
+	typename vector<T, A>::const_reference
+	vector<T, A>::front(void) const
+	{
+		return *this->cbegin();
+	}
+
+	template <typename T, typename A>
+	typename vector<T, A>::const_reference
+	vector<T, A>::back(void) const
+	{
+		return *std::prev(this->cend());
 	}
 
 	// <swap>
