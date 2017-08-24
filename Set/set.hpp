@@ -245,10 +245,6 @@ namespace containers
 			iterator upper_bound(const key_type &key);
 			const_iterator upper_bound(const key_type &key) const;
 
-			// Will be deleted
-			// const node_type* get_root(void) const { return root; }
-			// Will be deleted
-
 			// Observers
 			key_compare key_comp(void) const;
 			value_compare value_comp(void) const;
@@ -1223,7 +1219,6 @@ set<Key, Compare>::insert(value_type &&value)
 * ilist.size() * logN time where N is the number of elements in %set.
 *
 */
-
 template<typename Key, typename Compare>
 void set<Key, Compare>::insert(const std::initializer_list<Key> &ilist)
 {
@@ -1489,6 +1484,29 @@ set<Key, Compare>::upper_bound(const key_type &key) const
 		return const_iterator{bound, this};
 
 	return cend();
+}
+// @}
+
+// Observers:
+// @{
+/*
+* Returns instance of comparator used for comparing keys.
+*/
+template<typename Key, typename Compare>
+typename set<Key, Compare>::key_compare
+set<Key, Compare>::key_comp(void) const
+{
+	return Compare{};
+}
+
+/*
+* Returns instance of comparator used for comparing values.
+*/
+template<typename Key, typename Compare>
+typename set<Key, Compare>::value_compare
+set<Key, Compare>::value_comp(void) const
+{
+	return Compare{};
 }
 // @}
 // @@}
