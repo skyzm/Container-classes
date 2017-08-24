@@ -69,7 +69,7 @@ namespace containers::avl::detail
 	template<typename Key>
 	void left_rotate(set_node<Key> *&node, set_node<Key> *&root)
 	{
-		std::cerr << BOLDRED <<  "\nleft rotation of " << node->key << "\n" << RESET;
+		//std::cerr << BOLDRED <<  "\nleft rotation of " << node->key << "\n" << RESET;
 
 		set_node<Key>* tmp{node->right};
 		set_node<Key>* tmp2{tmp->left};
@@ -96,7 +96,7 @@ namespace containers::avl::detail
 	template<typename Key>
 	void right_rotate(set_node<Key> *&node, set_node<Key> *&root)
 	{
-		std::cerr << BOLDBLUE << "\nright rotation of " << node->key << "\n" << RESET;
+		//std::cerr << BOLDBLUE << "\nright rotation of " << node->key << "\n" << RESET;
 
 		set_node<Key>* 	tmp{node->left};
 		set_node<Key>* tmp2{tmp->right};
@@ -373,7 +373,8 @@ namespace containers::avl::detail
 		if(nullptr == root)
 			return;
 
-		std::cerr << MAGENTA << "Deleting node: " << root->key << RESET << std::endl;
+		//std::cerr << MAGENTA << "Deleting node: " << root->key << RESET << std::endl;
+
 		bst_delete(root->left);
 		bst_delete(root->right);
 		delete root;
