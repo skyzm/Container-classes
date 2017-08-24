@@ -9,7 +9,7 @@ namespace containers
 	// Set Node declaration:
 	// @@{
 	/*
-	* @brief A nonde structure used for storing keys in %set.
+	* @brief A node structure used for storing keys in %set.
 	*
 	* @param T Type of key objects.
 	*

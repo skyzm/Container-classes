@@ -11,8 +11,8 @@ namespace containers::avl::detail
 	* Function used for calculating height of %set_node
 	* relative to its children.
 	*/
-	template<typename T>
-	size_t node_height(set_node<T> *&node)
+	template<typename Key>
+	size_t node_height(set_node<Key> *&node)
 	{
 		size_t height{0};
 		if(node)
@@ -304,6 +304,62 @@ namespace containers::avl::detail
 			return bst_find(root->right, key, comp);
 		else							// @key is equivalent to @root->key
 			return root;
+	}
+
+	/*
+	* @brief Find lower bound of @key in %set
+	*
+	* @param root Root of tree to traverse.
+	* @param key Key to find bound for.
+	* @param comp Comparator to use.
+	*
+	* A lower bound is the first element not less than @key.
+	*/
+	template<typename Key, typename Compare>
+	set_node<Key>* bst_lower_bound(set_node<Key> *root, Key key, Compare comp)
+	{
+		if(nullptr == root)
+			return nullptr;
+
+		static set_node<Key> *ret{nullptr};
+
+		if(comp(root->key, key))
+			bst_lower_bound(root->right, key, comp);
+		else
+		{
+			ret = root;
+			bst_lower_bound(root->left, key, comp);
+		}
+
+		return ret;
+	}
+
+	/*
+	* @brief Find upper bound of @key in %set
+	*
+	* @param root Root of tree to traverse.
+	* @param key Key to find bound for.
+	* @param comp Comparator to use.
+	*
+	* An upper bound is the first element greater than @key.
+	*/
+	template<typename Key, typename Compare>
+	set_node<Key>* bst_upper_bound(set_node<Key> *root, Key key, Compare comp)
+	{
+		if(nullptr == root)
+			return nullptr;
+
+		static set_node<Key> *ret{nullptr};
+
+		if(comp(key, root->key))
+		{
+			ret = root;
+			bst_upper_bound(root->left, key, comp);
+		}
+		else
+			bst_upper_bound(root->right, key, comp);
+
+		return ret;
 	}
 
 	/*

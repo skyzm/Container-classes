@@ -213,8 +213,6 @@ namespace containers
 			// Insert
 			std::pair<iterator, bool> insert(const value_type &value);
 			std::pair<iterator, bool> insert(value_type &&value);
-			iterator insert(const_iterator hint, const value_type &value);
-			iterator insert(const_iterator hint, value_type &&value);
 			void insert(const std::initializer_list<Key> &ilist);
 			template<typename BidirIt>
 			void insert(BidirIt begin, BidirIt end);
@@ -1217,22 +1215,6 @@ set<Key, Compare>::insert(value_type &&value)
 }
 
 /*
-template<typename Key, typename Compare>
-typename set<Key, Compare>::iterator
-set<Key, Compare>::insert(const_iterator hint, const value_type &value)
-{
-
-}
-
-template<typename Key, typename Compare>
-typename set<Key, Compare>::iterator
-set<Key, Compare>::insert(const_iterator hint, value_type &&value)
-{
-
-}
-*/
-
-/*
 * @brief Insert function for std::initializer_list.
 *
 * @param ililst An std::initializer_list.
@@ -1407,6 +1389,106 @@ set<Key, Compare>::find(const key_type &key) const
 		return const_iterator{tmp, this};
 	else
 		return cend();
+}
+//@}
+
+// Equal range:
+// @{
+template<typename Key, typename Compare>
+std::pair<typename set<Key, Compare>::iterator, typename set<Key, Compare>::iterator>
+set<Key, Compare>::equal_range(const key_type &key)
+{
+	return std::make_pair(lower_bound(key), upper_bound(key));
+}
+
+template<typename Key, typename Compare>
+std::pair<typename set<Key, Compare>::const_iterator, typename set<Key, Compare>::const_iterator>
+set<Key, Compare>::equal_range(const key_type &key) const
+{
+	return std::make_pair(lower_bound(key), upper_bound(key));
+}
+// @}
+
+// Bounds:
+// @{
+/*
+* @brief Find lower bound of @key in %set.
+*
+* @param key Key to find bound for.
+*
+* @return %iterator to element or end() if no such is found.
+*
+* A lower bound is the first element in %set not less than @key.
+*/
+template<typename Key, typename Compare>
+typename set<Key, Compare>::iterator
+set<Key, Compare>::lower_bound(const key_type &key)
+{
+	node_type *bound{avl::detail::bst_lower_bound(root, key, Compare{})};
+	if(bound)
+		return iterator{bound, this};
+
+	return end();
+}
+
+/*
+* @brief Find lower bound of @key in %set.
+*
+* @param key Key to find bound for.
+*
+* @return %const_iterator (read-only) to element or end() if no such is found.
+*
+* A lower bound is the first element in %set not less than @key.
+*/
+template<typename Key, typename Compare>
+typename set<Key, Compare>::const_iterator
+set<Key, Compare>::lower_bound(const key_type &key) const
+{
+	node_type *bound{avl::detail::bst_lower_bound(root, key, Compare{})};
+	if(bound)
+		return const_iterator{bound, this};
+
+	return cend();
+}
+
+/*
+* @brief Find upper bound of @key in %set.
+*
+* @param key Key to find bound for.
+*
+* @return %iterator to element or end() if no such is found.
+*
+* An upper bound is the first element in %set greater than @key.
+*/
+template<typename Key, typename Compare>
+typename set<Key, Compare>::iterator
+set<Key, Compare>::upper_bound(const key_type &key)
+{
+	node_type *bound{avl::detail::bst_upper_bound(root, key, Compare{})};
+	if(bound)
+		return iterator{bound, this};
+
+	return end();
+}
+
+/*
+* @brief Find upper bound of @key in %set.
+*
+* @param key Key to find bound for.
+*
+* @return %const_iterator (read-only) to element or end() if no such is found.
+*
+* An upper bound is the first element in %set greater than @key.
+*/
+template<typename Key, typename Compare>
+typename set<Key, Compare>::const_iterator
+set<Key, Compare>::upper_bound(const key_type &key) const
+{
+	node_type *bound{avl::detail::bst_upper_bound(root, key, Compare{})};
+	if(bound)
+		return const_iterator{bound, this};
+
+	return cend();
 }
 // @}
 // @@}
