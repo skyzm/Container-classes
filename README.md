@@ -1,4 +1,4 @@
 # Container-classes
 
-Education C++ implementations of container classes.
-Currently working on 'Vector'.
+Educational C++ implementations of container classes.
+Currently working on '___'.
