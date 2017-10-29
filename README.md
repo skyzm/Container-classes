@@ -1,4 +1,3 @@
-# Container-classes
+# C++ programs
 
-Educational C++ implementations of container classes.
-Currently working on '___'.
+Learning C++ by usage.
