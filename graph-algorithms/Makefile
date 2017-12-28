@@ -1,13 +1,27 @@
-.PHONY: clean
+CXX 		= g++
+STANDARD	= -std=c++17
+DEBUG 		= -g
+CXXFLAGS 	= -Wall -Wextra $(STANDARD) $(DEBUG)
+SRC 		= main.cpp
+HEADER 		= graph.hpp \
+			  graph_algorithm.hpp \
+			  graph_algorithm_detail.hpp
+OBJ 		= $(SRC:.cpp=.o)
+TARGET 		= main
 
-PROGRAM = graph-algortithm
-CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -g
+.PHONY: clean zip
 
-$(PROGRAM) : main.o
-	$(CXX) $(CXXFLAGS) -o $(PROGRAM) main.o
+$(TARGET): $(OBJ) $(HEADER)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+$(OBJ): $(SRC)
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
 
 clean:
 	rm -f *.o
 	rm -f ~*
-	rm -f $(PROGRAM)
+	rm -f $(TARGET)
+
+zip:
+	zip -r $(TARGET).zip ./
