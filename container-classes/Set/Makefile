@@ -1,12 +1,27 @@
-.PHONY: clean
+CXX 		= g++
+STANDARD	= -std=c++17
+DEBUG 		= -g
+CXXFLAGS 	= -Wall -Wextra $(STANDARD) $(DEBUG)
+SRC 		= main.cpp
+HEADER 		= set.hpp \
+			  set_node.hpp \
+			  set_detail.hpp \
+			  color.hpp
+OBJ 		= $(SRC:.cpp=.o)
+TARGET 		= main
 
-PROGRAM = set
-CXX = g++
-CXXFLAGS =  -std=c++17 -Wall -Wextra -g
+.PHONY: clean zip
 
-$(PROGRAM) : main.o
-	$(CXX) $(CXXFLAGS) -o $(PROGRAM) main.o
+$(TARGET): $(OBJ) $(HEADER)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+$(OBJ): $(SRC)
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:
-	rm -f $(PROGRAM)
 	rm -f *.o
+	rm -f ~*
+	rm -f $(TARGET)
+
+zip:
+	zip -r $(TARGET).zip ./
