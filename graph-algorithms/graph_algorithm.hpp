@@ -44,7 +44,7 @@ namespace graph::algorithm
 		}
 
 		return sorted;
-	} // topological_sort
+	} /* topological_sort */
 
 	std::vector<double>
 	acyclic_shortest_path(const directed_graph &G, const int &start_v)
@@ -78,7 +78,7 @@ namespace graph::algorithm
 		}
 
 		return path;
-	} // acyclic_shortest_path
+	} /* acyclic_shortest_path */
 
 	std::vector<double>
 	dijkstra_shortest_path(const directed_graph &G, const int &start_v)
@@ -89,11 +89,11 @@ namespace graph::algorithm
 		size_t unvisited{path.size()};
 		while(unvisited)
 		{
-			// find the minimal unvisited vertex
+			/* find the minimal unvisited vertex */
 			auto min_vertex{std::min_element(path.begin(), path.end(),
 					detail::dijkstra_comparator)};
 
-			// mark vertex as visited
+			/* mark vertex as visited */
 			min_vertex->second = true;
 			--unvisited;
 
@@ -114,12 +114,12 @@ namespace graph::algorithm
 			result.push_back(e.first);
 
 		return result;
-	} // dijkstra_shortest_path
+	} /* dijkstra_shortest_path */
 
 	path_matrix
 	floyd_warshall_shortest_path(const directed_graph &G)
 	{
-		// initialize the path matrix
+		/* initialize the path matrix */
 		path_matrix res(G.size(), std::vector<double>(G.size(), inf));
 		for(size_t i = 0; i < G.size(); ++i)
 			for(auto e : G[i])
@@ -132,8 +132,8 @@ namespace graph::algorithm
 						res[j][k] = res[i][k] + res[j][i];
 
 		return res;
-	} // floyd_warshall_shortest_path
+	} /* floyd_warshall_shortest_path */
 
-} // nested namespace graph::algorithm
+} /* nested namespace graph::algorithm */
 
-#endif // _GRAPH_ALGORITHM_HPP_
+#endif /* _GRAPH_ALGORITHM_HPP_ */

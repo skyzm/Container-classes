@@ -41,8 +41,8 @@ namespace graph
 
 		private:
 			adjacency_list a_list;
-	}; // class directed_graph
+	}; /* class directed_graph */
 
-} // namespace graph
+} /* namespace graph */
 
-#endif // _GRAPH_HPP_
+#endif /* _GRAPH_HPP_ */
