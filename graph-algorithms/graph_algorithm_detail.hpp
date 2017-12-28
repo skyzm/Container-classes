@@ -12,17 +12,27 @@ namespace graph::algorithm::detail
 	void
 	dfs_traverse(const directed_graph &G, const int &n, std::vector<int> &en_deg)
 	{
-		static std::unordered_set<int> visited;
+		struct dfs_helper
+		{
+			void operator()(const directed_graph &G, const int &n, std::vector<int> &en_deg)
+			{
+				++en_deg[n];
+				if(visited.end() != visited.find(n))
+					return;
 
-		++en_deg[n];
-		if(visited.end() != visited.find(n))
-			return;
+				visited.emplace(n);
 
-		visited.emplace(n);
+				for(auto e : G[n])
+					this->operator()(G, e.first, en_deg);
+			}
 
-		for(auto e : G[n])
-			dfs_traverse(G, e.first, en_deg);
-	} // dfs_traverse
+			private:
+				std::unordered_set<int> visited;
+		}; /* struct dfs_helper */
+
+		dfs_helper traverse{};
+		traverse(G, n, en_deg);
+	} /* dfs_traverse */
 
 	std::vector<int>
 	get_entry_deg(const directed_graph &G)
@@ -32,7 +42,7 @@ namespace graph::algorithm::detail
 		dfs_traverse(G, 0, entry);
 
 		return entry;
-	} // get_entry_deg
+	} /* get_entry_deg */
 
 	const auto dijkstra_comparator
 	{
@@ -45,9 +55,9 @@ namespace graph::algorithm::detail
 
 			return a.first < b.first;
 		}
-	}; // dijkstra_comparator
+	}; /* dijkstra_comparator */
 
 
-} // namespace graph::algorithm::detail
+} /* namespace graph::algorithm::detail */
 
 #endif
