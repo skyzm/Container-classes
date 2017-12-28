@@ -28,8 +28,8 @@
 #include <iostream>
 #include <boost/pool/pool_alloc.hpp>
 #include <cppunit/ui/text/TextTestRunner.h>
-#include "vector.test.hpp"
-#include "test_info/info.hpp"
+#include "./cppunit/vector.test.hpp"
+#include "./cppunit/test_info/info.hpp"
 
 int
 main (void)
