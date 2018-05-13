@@ -1,4 +1,4 @@
-# &#955;: Learing C++
+# &#955;: Learning C++
 
 ## :information_source: About:
 **Author:** Stefan Pantic.  
