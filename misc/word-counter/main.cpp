@@ -42,11 +42,10 @@ main(const int argc, const char **argv)
 	}
 
 	/* Read file into map */
-	std::regex pattern("[!?.,;]*(\\w+)[!?.,;]*");
 	std::unordered_map<std::string, int> word_map;
 	std::for_each(	std::istream_iterator<std::string>(infile),
 					std::istream_iterator<std::string>(),
-					[&word_map, &pattern] (auto e)
+					[&word_map, pattern = std::regex("[!?.,;]*(\\w+)[!?.,;]*")] (auto e)
 					{
 						/* Remove special characters if they are prefixes or suffixes of string */
 						if(std::regex_match(e, pattern)) {
