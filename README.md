@@ -1,4 +1,4 @@
-# &#955;: Learning C++
+# &#955;: C++ Playground
 
 ## :information_source: About:
 **Author:** Stefan Pantic.  
